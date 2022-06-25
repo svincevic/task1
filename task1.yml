@@ -1,0 +1,24 @@
+- hosts: all
+  tasks:
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: latest
+  - name: Start httpd
+    systemd:
+      state: started
+      name: httpd
+      enabled: yes
+  - name: Install unzip
+    yum:
+      name: unzip
+      state: latest
+  - name: Extract files
+    unarchive:
+      src: https://www.free-css.com/assets/files/free-css-templates/download/page274/kloof.zip
+      dest: /var/www/html/
+      remote_src: yes
+
+  - name: Disable SELinux
+    selinux:
+      state: disabled
